@@ -95,7 +95,7 @@ const developers = [
   {
     name: "Namo Tripathi",
     role: "Frontend Developer",
-    email: "tripathinamo339@gmail.com",
+    email: "tripathinamo291@gmail.com",
     image: "/namo_image.jpg",
     instagram:
       "https://www.instagram.com/namo_tripathi_27?obrf=MTR3cHZqbzJrcndvYw==",

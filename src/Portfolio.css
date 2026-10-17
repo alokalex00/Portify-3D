@@ -809,3 +809,210 @@
   outline: 2px solid #a78bfa;
   outline-offset: 4px;
 }
+
+
+
+/* Portify-3D attribution */
+.portfolio-credit {
+  margin: 0;
+  color: #81849f;
+  font-size: 10px;
+  text-align: center;
+  line-height: 1.8;
+}
+
+.portfolio-credit a {
+  color: #c4b5fd;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.25s ease, text-shadow 0.25s ease;
+}
+
+.portfolio-credit a:hover {
+  color: #67e8f9;
+  text-shadow: 0 0 12px rgba(103, 232, 249, 0.45);
+}
+
+
+
+.portfolio-download-button {
+  flex-shrink: 0;
+  white-space: nowrap;
+  padding: 10px 14px;
+  border: 1px solid rgba(196, 181, 253, 0.35);
+  border-radius: 12px;
+  background: linear-gradient(
+    135deg,
+    rgba(139, 92, 246, 0.2),
+    rgba(103, 232, 249, 0.08)
+  );
+  color: #e9e7ff;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.portfolio-download-button:hover {
+  border-color: #67e8f9;
+  transform: translateY(-2px);
+}
+
+.portfolio-download-button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+
+
+.portfolio-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.portfolio-download-button {
+  flex-shrink: 0;
+  white-space: nowrap;
+  padding: 10px 14px;
+  border: 1px solid rgba(196, 181, 253, 0.35);
+  border-radius: 12px;
+  background: linear-gradient(
+    135deg,
+    rgba(139, 92, 246, 0.2),
+    rgba(103, 232, 249, 0.08)
+  );
+  color: #e9e7ff;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.portfolio-download-button:hover {
+  border-color: #67e8f9;
+  transform: translateY(-2px);
+}
+
+.portfolio-download-button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+@media (max-width: 900px) {
+  .portfolio-nav-actions {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+/* Premium Download Portfolio Button */
+.portfolio-download-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  flex-shrink: 0;
+  white-space: nowrap;
+  padding: 13px 19px;
+
+  border: 1px solid rgba(167, 139, 250, 0.48);
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(124, 58, 237, 0.95),
+      rgba(79, 70, 229, 0.9) 55%,
+      rgba(37, 99, 235, 0.92)
+    );
+
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: 0.15px;
+
+  box-shadow:
+    0 5px 18px rgba(79, 70, 229, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+
+  cursor: pointer;
+  overflow: hidden;
+  isolation: isolate;
+
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease,
+    border-color 0.28s ease,
+    filter 0.28s ease;
+}
+
+/* Soft shine overlay */
+.portfolio-download-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  background: linear-gradient(
+    110deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.2) 48%,
+    transparent 76%
+  );
+
+  transform: translateX(-120%);
+  transition: transform 0.65s ease;
+}
+
+.portfolio-download-button:hover {
+  transform: translateY(-2px);
+  border-color: rgba(196, 181, 253, 0.9);
+
+  box-shadow:
+    0 9px 28px rgba(109, 40, 217, 0.32),
+    0 0 18px rgba(96, 165, 250, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+
+  filter: brightness(1.08);
+}
+
+.portfolio-download-button:hover::before {
+  transform: translateX(120%);
+}
+
+.portfolio-download-button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.portfolio-download-button:focus-visible {
+  outline: 2px solid #a5b4fc;
+  outline-offset: 4px;
+}
+
+.portfolio-download-button:disabled {
+  opacity: 0.72;
+  cursor: wait;
+  transform: none;
+  filter: none;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.15);
+}
+
+@media (max-width: 600px) {
+  .portfolio-download-button {
+    padding: 11px 13px;
+    font-size: 12px;
+    border-radius: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-download-button,
+  .portfolio-download-button::before {
+    transition: none;
+  }
+}

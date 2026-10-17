@@ -1,4 +1,4 @@
-
+import JSZip from "jszip";
 import { useEffect, useRef, useState } from "react";
 import {
   ArrowDown,
@@ -284,6 +284,80 @@ function NetworkBackground() {
 
 export default function Portfolio() {
   const [data] = useState(safeReadPortfolio);
+  const [isDownloading, setIsDownloading] = useState(false);
+  
+const downloadPortfolioZip = async () => {
+  try {
+    setIsDownloading(true);
+
+    const zip = new JSZip();
+
+    const files = [
+      "package.json",
+      "index.html",
+      "vite.config.js",
+      "README.md",
+      "src/main.jsx",
+      "src/ExportApp.jsx",
+      "src/Portfolio.jsx",
+      "src/Portfolio.css"
+    ];
+
+    for (const file of files) {
+      const response = await fetch(
+        `/portfolio-export-template/${file}`
+      );
+
+      if (!response.ok) {
+        throw new Error(`Template file missing: ${file}`);
+      }
+
+      zip.file(file, await response.text());
+    }
+
+    const safeData = {
+      ...data,
+      skills: Array.isArray(data.skills) ? data.skills : [],
+      education: Array.isArray(data.education) ? data.education : [],
+      experience: Array.isArray(data.experience) ? data.experience : [],
+      achievements: Array.isArray(data.achievements)
+        ? data.achievements
+        : [],
+      projects: Array.isArray(data.projects) ? data.projects : []
+    };
+
+    zip.file(
+      "src/portfolioData.js",
+      `const portfolioData = ${JSON.stringify(safeData, null, 2)};\n\nexport default portfolioData;\n`
+    );
+
+    const blob = await zip.generateAsync({ type: "blob" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = `${(data.name || "my-portfolio")
+      .trim()
+      .replace(/[^a-z0-9]+/gi, "-")
+      .replace(/^-|-$/g, "")
+      .toLowerCase() || "my-portfolio"}.zip`;
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  } catch (error) {
+    console.error("Portfolio ZIP download failed:", error);
+    alert(
+      "ZIP download failed. Check that all template files exist and the website is running."
+    );
+  } finally {
+    setIsDownloading(false);
+  }
+};
+
+
   const [introStage, setIntroStage] = useState(0);
   const [introFinished, setIntroFinished] = useState(false);
 
@@ -392,20 +466,36 @@ export default function Portfolio() {
             <a href="#contact">Contact</a>
           </nav>
 
+         
           <a href="#contact" className="portfolio-nav-cta">
             Let’s talk <ArrowUpRight size={15} />
           </a>
-          <button
-  type="button"
-  className="build-another-btn"
-  onClick={() => {
-    sessionStorage.removeItem("portify-portfolio");
-    window.location.href = "/?new=1";
-  }}
->
-  + Build Another Portfolio
-</button>
+
+          <div className="portfolio-nav-actions">
+            <button
+              type="button"
+              className="build-another-btn"
+              onClick={() => {
+                sessionStorage.removeItem("portify-portfolio");
+                window.location.href = "/?new=1";
+              }}
+            >
+              + Build Another Portfolio
+            </button>
+
+            <button
+              type="button"
+              className="portfolio-download-button"
+              onClick={downloadPortfolioZip}
+              disabled={isDownloading}
+            >
+              {isDownloading
+                ? "Preparing ZIP..."
+                : "Download Portfolio ZIP"}
+            </button>
+          </div>
         </header>
+
 
         <main>
           {/* HERO */}
@@ -767,7 +857,18 @@ export default function Portfolio() {
             {data.name || "Portfolio"}<b>.</b>
           </a>
 
-          <p>Designed & built with React. Keep learning, keep building.</p>
+          
+<p className="portfolio-credit">
+  Designed by{" "}
+  <a
+    href="https://portify-3d.vercel.app/"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Portify-3D
+  </a>
+</p>
+
 
           <a href="#home" className="portfolio-back-top">
             Back to top ↑
