@@ -372,7 +372,7 @@ export default function Portfolio() {
           <a href="#contact" className="portfolio-nav-cta">
             Let’s talk <ArrowUpRight size={15} />
           </a>
-          <button
+          {/* <button
   type="button"
   className="build-another-btn"
   onClick={() => {
@@ -381,7 +381,7 @@ export default function Portfolio() {
   }}
 >
   + Build Another Portfolio
-</button>
+</button> */}
         </header>
 
         <main>

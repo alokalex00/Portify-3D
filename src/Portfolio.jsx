@@ -472,7 +472,7 @@ const downloadPortfolioZip = async () => {
           </a>
 
           <div className="portfolio-nav-actions">
-            <button
+            {/* <button
               type="button"
               className="build-another-btn"
               onClick={() => {
@@ -481,7 +481,7 @@ const downloadPortfolioZip = async () => {
               }}
             >
               + Build Another Portfolio
-            </button>
+            </button> */}
 
             <button
               type="button"
